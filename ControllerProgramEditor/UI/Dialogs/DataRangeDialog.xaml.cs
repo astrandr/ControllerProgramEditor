@@ -23,8 +23,10 @@ namespace ControllerProgramEditor
         private void Input_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
             OkButton.IsEnabled =
-                int.TryParse(StartIndexTextBox.Text, out _) &&
-                int.TryParse(CountsTextBox.Text, out _);
+                int.TryParse(StartIndexTextBox.Text, out int startIndex) &&
+                int.TryParse(CountsTextBox.Text, out int counts) &&
+                startIndex >= 0 &&
+                counts > 0;
         }
     }
 }

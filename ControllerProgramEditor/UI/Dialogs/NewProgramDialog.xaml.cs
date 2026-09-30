@@ -21,7 +21,7 @@ namespace ControllerProgramEditor
 
         private void NameTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
-            OkButton.IsEnabled = !string.IsNullOrWhiteSpace(NameTextBox.Text);
+            OkButton.IsEnabled = !string.IsNullOrWhiteSpace(NameTextBox.Text) && NameTextBox.Text.IndexOf(" ") < 0;
         }
     }
 }

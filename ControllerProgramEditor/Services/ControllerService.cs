@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using System.Windows;
 using Trio.ControllerConnection;
 
 namespace ControllerProgramEditor.Services
@@ -14,21 +15,11 @@ namespace ControllerProgramEditor.Services
             this.logger = logger;
         }
 
-        public IEnumerable<string> Programs => controller.IsOpen ? controller.Dir : new string[] { };
+        public IEnumerable<string> Programs => controller.IsOpen ? controller.Dir : Enumerable.Empty<string>();
 
-        public async Task<bool> ConnectAsync(string controllerName)
+        public async Task ConnectAsync(string controllerName)
         {
-            try
-            {
-                await Task.Run(() => controller.Open(controller.DefaultPeerAddress));
-                return controller.IsOpen;
-            }
-            catch (Exception ex)
-            {
-                logger.LogError("Cannot connect to controller {name}, {ex}", controllerName, ex);
-                return false;
-            }
-
+             await Task.Run(() => controller.Open(controller.DefaultPeerAddress));
         }
 
         public void Close()
@@ -51,77 +42,37 @@ namespace ControllerProgramEditor.Services
 
         public void DeleteProgram(string name)
         {
-            if (!controller.IsOpen)
-            {
-                logger.LogDebug("CreateProgram is called when controller is not connected");
-                return;
-            }
-
             controller.DeleteProgram(name);
         }
 
         public Task UploadProgramAsync(string name, string code, IProgress<int> progress)
         {
-            if (!controller.IsOpen)
-            {
-                logger.LogError("UploadProgram is called when controller is not connected");
-                return Task.CompletedTask;
-            }
-
             return Task.Run(() => controller.LoadProgramCode(name, code, progress));
         }
 
         public Task<string> ReadProgramAsync(string name, IProgress<int> progress)
         {
-            if (!controller.IsOpen)
-            {
-                logger.LogError("ReadProgram is called when controller is not connected");
-                return Task.FromResult(string.Empty);
-            }
+
             return Task.Run(() => controller.GetProgramCode(name, progress));
         }
 
         public Task<int> UploadTableDataAsync(int offSet, double[] values, IProgress<int> progress)
         {
-            if (!controller.IsOpen)
-            {
-                logger.LogError("UploadProgram is called when controller is not connected");
-                return Task.FromResult(0);
-            }
-
-            return Task.Run( () => controller.WriteValues(ControllerMemory.TABLE, offSet, values, progress));
+            return Task.Run(() => controller.WriteValues(ControllerMemory.TABLE, offSet, values, progress));
         }
 
         public Task<int> ReadTableDataAsync(int offset, double[] values, IProgress<int> progress)
         {
-            if (!controller.IsOpen)
-            {
-                logger.LogError("ReadTableData is called when controller is not connected");
-                return Task.FromResult(0);
-            }
-
             return Task.Run( () => controller.ReadValues(ControllerMemory.TABLE, offset, values, progress));
         }
 
         public Task<int> UploadVRDataAsync(int offSet, double[] values, IProgress<int> progress)
         {
-            if (!controller.IsOpen)
-            {
-                logger.LogError("UploadProgram is called when controller is not connected");
-                return Task.FromResult(0);
-            }
-
             return Task.Run( () => controller.WriteValues(ControllerMemory.VR, offSet, values, progress));
         }
 
         public Task<int> ReadVRDataAsync(int offSet, double[] values, IProgress<int> progress)
         {
-            if (!controller.IsOpen)
-            {
-                logger.LogError("ReadTableData is called when controller is not connected");
-                return Task.FromResult(0);
-            }
-
             return Task.Run( () => controller.ReadValues(ControllerMemory.VR, offSet, values, progress));
         }
     }

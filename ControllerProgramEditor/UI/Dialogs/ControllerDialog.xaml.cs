@@ -25,5 +25,11 @@ namespace ControllerProgramEditor.UI
             DialogResult = false;
             Close();
         }
+
+        private void Input_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            OkButton.IsEnabled = !string.IsNullOrWhiteSpace(ControllerNameTextBox.Text) &&
+                                 !ControllerNameTextBox.Text.Any(char.IsWhiteSpace);
+        }
     }
 }

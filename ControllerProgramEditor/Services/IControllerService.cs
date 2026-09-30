@@ -5,7 +5,7 @@ namespace ControllerProgramEditor.Services
     {
         IEnumerable<string> Programs { get; }
 
-        Task<bool> ConnectAsync(string controllerName);
+        Task ConnectAsync(string controllerName);
 
         void Close();
         

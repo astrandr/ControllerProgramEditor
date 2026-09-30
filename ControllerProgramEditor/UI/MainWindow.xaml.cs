@@ -31,6 +31,7 @@ namespace ControllerProgramEditor
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ConnectionStatus)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CanUploadReadData)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CanConnect)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CanUpload)));
             }
         }
 
@@ -64,7 +65,7 @@ namespace ControllerProgramEditor
             }
         }
 
-        private string programText = "Test";
+        private string programText = "";
 
         public string ProgramText
         {
@@ -76,9 +77,8 @@ namespace ControllerProgramEditor
 
                 programText = value;
 
-                PropertyChanged?.Invoke(
-                    this,
-                    new PropertyChangedEventArgs(nameof(ProgramText)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ProgramText)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CanUpload)));
             }
         }
 
@@ -185,16 +185,19 @@ namespace ControllerProgramEditor
 
             if (controllerDlg.ShowDialog() == true)
             {
-                CanConnect = false;
-                var connectionSuccessful = await controllerService.ConnectAsync(controllerDlg.ControllerName);
-                
-                if (!connectionSuccessful)
+                try
                 {
-                    IsConnected = false;
-                    CanConnect = true;
-                    MessageBox.Show("Cannot connect to the specified controller", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+                    CanConnect = false;
+                    await controllerService.ConnectAsync(controllerDlg.ControllerName);
+                }
+                catch (Exception ex)
+                {
+                    IsConnected = controllerService.IsOpen;
+                    CanConnect = !IsConnected;
+                    MessageBox.Show($"Failed to connect to controller. {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
+
 
                 IsConnected = controllerService.IsOpen;
                 CanConnect = !IsConnected;

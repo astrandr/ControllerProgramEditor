@@ -14,7 +14,7 @@
         </Grid.ColumnDefinitions>
 
         <Label Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Content="Controller Name" />
-        <TextBox x:Name="ControllerNameTextBox" Grid.Row="0" Grid.Column="1" Margin="8,0,0,0" Width="100" Height="18"/>
+        <TextBox x:Name="ControllerNameTextBox" Grid.Row="0" Grid.Column="1" Margin="8,0,0,0" Width="100" Height="18" TextChanged="Input_TextChanged"/>
 
         <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,12,0,0">
             <Button x:Name="OkButton" Width="75" Margin="0,0,8,0" IsDefault="True" Click="OkButton_Click">OK</Button>
