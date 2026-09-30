@@ -1,0 +1,45 @@
+<Window x:Class="ControllerProgramEditor.DataRangeDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Data range"
+        Width="320"
+        Height="170"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize">
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal">
+            <Label Content="Start index:" Width="80"/>
+            <TextBox x:Name="StartIndexTextBox" Width="100" TextChanged="Input_TextChanged" Height="18"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,8,0,0">
+            <Label Content="Counts:" Width="80"/>
+            <TextBox x:Name="CountsTextBox" Width="100" TextChanged="Input_TextChanged" Height="18"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    Margin="0,15,0,0">
+
+            <Button Content="OK"
+                    x:Name="OkButton"
+                    Width="70"
+                    IsDefault="True"
+                    Click="Ok_Click"
+                    IsEnabled="False"/>
+
+            <Button Content="Cancel"
+                    Width="70"
+                    Margin="5,0,0,0"
+                    IsCancel="True"/>
+        </StackPanel>
+    </Grid>
+</Window>

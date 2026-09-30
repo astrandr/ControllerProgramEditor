@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="TrioControllerConnection.dll" />
+    <None Remove="UI\Icons\New.png" />
+    <None Remove="UI\Icons\Open.png" />
+    <None Remove="UI\Icons\ReadData.png" />
+    <None Remove="UI\Icons\Upload.png" />
+    <None Remove="UI\Icons\UploadData.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.12" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.12" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.12" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="UI\Icons\New.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="UI\Icons\Open.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="UI\Icons\ReadData.png" />
+    <Resource Include="UI\Icons\Upload.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="UI\Icons\UploadData.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="TrioControllerConnection">
+      <HintPath>TrioControllerConnection.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
