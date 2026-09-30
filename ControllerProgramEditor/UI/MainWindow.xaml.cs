@@ -229,7 +229,20 @@ namespace ControllerProgramEditor
 
         private async void ReadProgram_Click(object sender, RoutedEventArgs e)
         {
-            var programs = controllerService.Programs.ToList();
+            IEnumerable<string> programs;
+
+            try
+            {
+                programs = controllerService.Programs.ToList();
+            }
+            catch (System.Exception ex)
+            {
+                IsConnected = controllerService.IsOpen;
+                CanConnect = !IsConnected;
+                MessageBox.Show($"Failed to get list of programs. {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                logger.LogError("Failed to get list of programs, {message}", ex.Message);
+                return;
+            }
 
             var dialog = new ProgramReadDialog(programs, name =>
             {

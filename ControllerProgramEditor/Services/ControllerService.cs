@@ -6,7 +6,7 @@ namespace ControllerProgramEditor.Services
 {
     internal class ControllerService : IControllerService
     {
-        private IControllerConnection controller;
+        private readonly IControllerConnection controller;
         private readonly ILogger logger;
 
         public ControllerService(IControllerConnection controller, ILogger logger)
