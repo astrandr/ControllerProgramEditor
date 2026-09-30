@@ -29,17 +29,6 @@ namespace ControllerProgramEditor.Services
 
         public bool IsOpen => controller.IsOpen;
 
-        public void CreateProgram(string name)
-        {
-            if (!controller.IsOpen)
-            {
-                logger.LogDebug("CreateProgram is called when controller is not connected");
-                return;
-            }
-
-            controller.CreateProgram(name);
-        }
-
         public void DeleteProgram(string name)
         {
             controller.DeleteProgram(name);

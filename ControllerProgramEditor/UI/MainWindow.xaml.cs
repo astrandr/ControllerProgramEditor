@@ -223,6 +223,7 @@ namespace ControllerProgramEditor
             if (newProgramDialog.ShowDialog() == true)
             {
                 ProgramName = newProgramDialog.ProgramName;
+
             }
         }
 
@@ -230,13 +231,26 @@ namespace ControllerProgramEditor
         {
             var programs = controllerService.Programs.ToList();
 
-            var dialog = new ProgramReadDialog(programs, name => controllerService.DeleteProgram(name))
+            var dialog = new ProgramReadDialog(programs, name =>
+            {
+                try
+                {
+                    controllerService.DeleteProgram(name);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Failed to delete the program. {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    logger.LogError("Failed to delete the program, {message}", ex.Message);
+                    throw;
+                }
+
+            })
             {
                 Owner = this
             };
 
             if (dialog.ShowDialog() == true)
-            {                             
+            {
                 try
                 {
                     ProgramText = await controllerService.ReadProgramAsync(dialog.ProgramName, this);
@@ -297,13 +311,13 @@ namespace ControllerProgramEditor
                         MessageBox.Show($"Failed to read data, read count 0.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         logger.LogError("Failed to read data, read count 0.");
                     }
-                    
+
                 }
                 catch (Exception ex)
                 {
                     IsConnected = controllerService.IsOpen;
                     MessageBox.Show($"Failed to read data. {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    logger.LogError("Failed to read data, {message}", ex.Message);                    
+                    logger.LogError("Failed to read data, {message}", ex.Message);
                 }
                 finally
                 {
@@ -336,7 +350,7 @@ namespace ControllerProgramEditor
                 IsOperationInProgress = false;
                 CanConnect = !IsConnected;
             }
-            
+
         }
 
         public void Report(int value)

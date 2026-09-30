@@ -4,14 +4,9 @@ namespace ControllerProgramEditor.Services
     internal interface IControllerService
     {
         IEnumerable<string> Programs { get; }
-
         Task ConnectAsync(string controllerName);
-
-        void Close();
-        
+        void Close();        
         bool IsOpen { get; }
-        void CreateProgram(string name);
-
         void DeleteProgram(string name);
         Task<string> ReadProgramAsync(string name, IProgress<int> progress);
         Task<int> ReadTableDataAsync(int offSet, double[] values, IProgress<int> progress);

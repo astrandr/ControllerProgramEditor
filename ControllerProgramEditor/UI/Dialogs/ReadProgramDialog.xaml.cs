@@ -41,7 +41,16 @@ namespace ControllerProgramEditor
         {
             if (ProgramsListBox.SelectedItem is string name)
             {
-                deleteCallback(name);
+                try
+                {
+                    deleteCallback(name);
+                }
+                catch
+                {
+
+                    return;
+                }
+
                 programs.Remove(name);
             }
         }
