@@ -1,4 +1,4 @@
-﻿namespace ControllerProgramEditor
+﻿namespace ControllerProgramEditor.UI.ViewModels
 {
     public class DataRow
     {

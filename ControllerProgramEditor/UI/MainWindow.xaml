@@ -27,39 +27,39 @@
         <Menu Grid.Row="0">
 
             <MenuItem Header="Controller">
-                <MenuItem Header="_Connect" Click="Connect_Click"  IsEnabled="{Binding CanConnect, UpdateSourceTrigger=PropertyChanged}"/>
-                <MenuItem Header="_Disconnect" Click="Disconnect_Click" IsEnabled="{Binding IsConnected}"/>
+                <MenuItem Header="_Connect"  Command="{Binding ConnectCommand}" />
+                <MenuItem Header="_Disconnect" Command="{Binding DisconnectCommand}"/>
             </MenuItem>
 
-            <MenuItem Header="_Program" IsEnabled="{Binding IsConnected}">
-                <MenuItem Header="_New" Click="New_Click"/>
-                <MenuItem Header="_Read" Click="ReadProgram_Click" IsEnabled="{Binding IsConnected}"/>
-                <MenuItem Header="_Upload" Click="UploadProgram_Click" IsEnabled="{Binding CanUpload}"/>
+            <MenuItem Header="_Program" > <!--IsEnabled="{Binding IsConnected}"-->
+                <MenuItem Header="_New" Command="{Binding NewProgramCommand}"/>
+                <MenuItem Header="_Read" Command="{Binding ReadProgramCommand}"/>
+                <MenuItem Header="_Upload" Command="{Binding UploadProgramCommand}"/>
             </MenuItem>
 
             <MenuItem Header="_Data" IsEnabled="{Binding IsConnected}">
-                <MenuItem Header="_Read" IsEnabled="{Binding CanUploadReadData}" Click="ReadData_Click"/>
-                <MenuItem Header="_Upload"  IsEnabled="{Binding CanUploadReadData}" Click="UploadData_Click"/>
+                <MenuItem Header="_Read" Command="{Binding ReadDataCommand}"/>
+                <MenuItem Header="_Upload" Command="{Binding UploadDataCommand}"/>
             </MenuItem>
         </Menu>
 
         <ToolBar Grid.Row="1" ToolBarTray.IsLocked="True">
-            <Button ToolTip="New" Click="New_Click">
+            <Button ToolTip="New" Command="{Binding NewProgramCommand}">
                 <Image Source="/UI/Icons/New.png" Width="24" Height="24"/>
             </Button>
-            <Button ToolTip="Read Program"  IsEnabled="{Binding IsConnected}" Click="ReadProgram_Click">
+            <Button ToolTip="Read Program" Command="{Binding ReadProgramCommand}">
                 <Image Source="/UI/Icons/Open.png" Width="24" Height="24" />
             </Button>
-            <Button ToolTip="Upload Program"  IsEnabled="{Binding CanUpload}" Click="UploadProgram_Click">
+            <Button ToolTip="Upload Program" Command="{Binding UploadProgramCommand}">
                 <Image Source="/UI/Icons/Upload.png" Width="24" Height="24" />
             </Button>
 
-            <Button ToolTip="Read Data" IsEnabled="{Binding CanUploadReadData}"  Click="ReadData_Click">
+            <Button ToolTip="Read Data" Command="{Binding ReadDataCommand}">
                 <Image Source="/UI/Icons/ReadData.png" Width="24" Height="24" />
             </Button>
 
-            <Button ToolTip="Upload Data" IsEnabled="{Binding CanUploadReadData}"  Click="UploadData_Click">
-                <Image Source="/UI/Icons/UploadData.png" Width="24" Height="24" IsEnabled="{Binding CanUploadReadData}"/>
+            <Button ToolTip="Upload Data" Command="{Binding UploadDataCommand}">
+                <Image Source="/UI/Icons/UploadData.png" Width="24" Height="24"/>
             </Button>
         </ToolBar>
 

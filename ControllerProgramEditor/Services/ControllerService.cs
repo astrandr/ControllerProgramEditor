@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Logging;
-using System.Windows;
 using Trio.ControllerConnection;
 
 namespace ControllerProgramEditor.Services
