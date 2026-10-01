@@ -32,6 +32,7 @@ namespace ControllerProgramEditor.UI
                 OnPropertyChanged(nameof(ProgramName));
                 OnPropertyChanged(nameof(CanEdit));
                 OnPropertyChanged(nameof(CanUploadProgram));
+                UploadProgramCommand.RaiseCanExecuteChanged();
             }
         }
         private string programText = "";
