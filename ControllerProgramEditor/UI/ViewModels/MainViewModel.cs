@@ -4,9 +4,6 @@ using ControllerProgramEditor.UI.Dialogs;
 using ControllerProgramEditor.UI.ViewModels;
 using Microsoft.Extensions.Logging;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Windows;
-using System.Windows.Input;
 
 namespace ControllerProgramEditor.UI
 {
@@ -144,6 +141,7 @@ namespace ControllerProgramEditor.UI
 
                 canConnect = value;
                 OnPropertyChanged(nameof(CanConnect));
+                RaiseAllCanExecuteChanged();
             }
         }
         private bool canUploadReadData = true;
@@ -157,6 +155,7 @@ namespace ControllerProgramEditor.UI
 
                 canUploadReadData = value;
                 OnPropertyChanged(nameof(CanUploadReadData));
+                RaiseAllCanExecuteChanged();
             }
         }
 
@@ -224,7 +223,7 @@ namespace ControllerProgramEditor.UI
                 {
                     IsConnected = controllerService.IsOpen;
                     CanConnect = !IsConnected;
-                    dlgService.ShowMessage($"Failed to connect to controller. {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    dlgService.ShowError($"Failed to connect to controller. {ex.Message}");
                     return;
                 }
 
@@ -255,7 +254,7 @@ namespace ControllerProgramEditor.UI
             {
                 IsConnected = controllerService.IsOpen;
                 CanConnect = !IsConnected;
-                dlgService.ShowMessage($"Failed to get list of programs. {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                dlgService.ShowError($"Failed to get list of programs. {ex.Message}");
                 logger.LogError("Failed to get list of programs, {message}", ex.Message);
                 return;
             }
@@ -268,7 +267,7 @@ namespace ControllerProgramEditor.UI
                 }
                 catch (Exception ex)
                 {
-                    dlgService.ShowMessage($"Failed to delete the program. {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    dlgService.ShowError($"Failed to delete the program. {ex.Message}");
                     logger.LogError("Failed to delete the program, {message}", ex.Message);
                     throw;
                 }
@@ -287,7 +286,7 @@ namespace ControllerProgramEditor.UI
                 {
                     IsConnected = controllerService.IsOpen;
                     CanConnect = !IsConnected;
-                    dlgService.ShowMessage($"Failed to read the program. {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    dlgService.ShowError($"Failed to read the program. {ex.Message}");
                     logger.LogError("Failed to read the program, {message}", ex.Message);
                 }
             }
@@ -298,12 +297,12 @@ namespace ControllerProgramEditor.UI
             try
             {
                 await controllerService.UploadProgramAsync(programName, ProgramText, this);
-                dlgService.ShowMessage("Program upload completed.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                dlgService.ShowInformation("Program upload completed.");
             }
             catch (Exception ex)
             {
                 IsConnected = controllerService.IsOpen; CanConnect = !IsConnected;
-                dlgService.ShowMessage($"Failed to upload the program.\r\n{ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                dlgService.ShowError($"Failed to upload the program.\r\n{ex.Message}");
                 logger.LogError("Failed to upload the program, {message}", ex.Message);
             }
         }
@@ -332,7 +331,7 @@ namespace ControllerProgramEditor.UI
                     else
                     {
                         IsConnected = controllerService.IsOpen;
-                        dlgService.ShowMessage($"Failed to read data, read count 0.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        dlgService.ShowError($"Failed to read data, read count 0.");
                         logger.LogError("Failed to read data, read count 0.");
                     }
 
@@ -340,7 +339,7 @@ namespace ControllerProgramEditor.UI
                 catch (Exception ex)
                 {
                     IsConnected = controllerService.IsOpen;
-                    dlgService.ShowMessage($"Failed to read data. {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    dlgService.ShowError($"Failed to read data. {ex.Message}");
                     logger.LogError("Failed to read data, {message}", ex.Message);
                 }
                 finally
@@ -360,12 +359,12 @@ namespace ControllerProgramEditor.UI
                 CanUploadReadData = false;
                 IsOperationInProgress = true;
                 await controllerService.UploadTableDataAsync(tableDataOffset, values, this);
-                dlgService.ShowMessage("Data upload is complete.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                dlgService.ShowInformation("Data upload is complete.");
             }
             catch (Exception ex)
             {
                 IsConnected = controllerService.IsOpen;
-                dlgService.ShowMessage($"Failed to upload data. {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                dlgService.ShowError($"Failed to upload data. {ex.Message}");
                 logger.LogError("Failed to upload data, {message}", ex.Message);
             }
             finally

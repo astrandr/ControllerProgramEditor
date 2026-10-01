@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace ControllerProgramEditor.UI.Dialogs
 {
@@ -42,9 +44,14 @@ namespace ControllerProgramEditor.UI.Dialogs
             else return null;
         }
 
-        public void ShowMessage(string message, string caption, MessageBoxButton button, MessageBoxImage image)
+        public void ShowError(string message)
         {
-            MessageBox.Show(message, caption, button, image);
+            MessageBox.Show(message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
+        public void ShowInformation(string message)
+        {
+            MessageBox.Show(message, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         public DataRangeResult SelectDataRange()

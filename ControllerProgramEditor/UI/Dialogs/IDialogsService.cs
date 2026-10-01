@@ -8,8 +8,10 @@ namespace ControllerProgramEditor.UI.Dialogs
 
         string GetNewProgramName();
 
-        void ShowMessage(string message, string caption, MessageBoxButton button, MessageBoxImage image);
-        
+        void ShowError(string message);
+
+        void ShowInformation(string message);
+
         string SelectProgram(IEnumerable<string> programs, Action<string> deleteCallback);
 
         DataRangeResult SelectDataRange();

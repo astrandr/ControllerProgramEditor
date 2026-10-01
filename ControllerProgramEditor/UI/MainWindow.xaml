@@ -73,10 +73,10 @@
                 <ColumnDefinition Width="120" MinWidth="100"/>
             </Grid.ColumnDefinitions>
 
-            <TextBox Grid.Column="0" Text ="{Binding ProgramText, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding CanEdit, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" AcceptsTab="True" FontFamily="Consolas" FontSize="14" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"/>
+            <TextBox Grid.Column="0" Text ="{Binding ProgramText, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding CanEdit}" AcceptsReturn="True" AcceptsTab="True" FontFamily="Consolas" FontSize="14" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"/>
 
 
-            <DataGrid Grid.Row="0" Grid.Column="1" ItemsSource="{Binding Rows, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
+            <DataGrid Grid.Row="0" Grid.Column="1" ItemsSource="{Binding Rows}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
 
                 <DataGrid.Resources>
 

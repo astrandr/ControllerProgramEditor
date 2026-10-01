@@ -6,6 +6,7 @@ namespace ControllerProgramEditor.UI.Commands
     {
         private readonly Func<Task> execute;
         private readonly Func<bool> canExecute;
+        private bool isExecuting;
 
         public AsyncRelayCommand(Func<Task> execute, Func<bool> canExecute)
         {
@@ -13,14 +14,28 @@ namespace ControllerProgramEditor.UI.Commands
             this.canExecute = canExecute;
         }
 
-        public async void Execute(object parameter)
-        {
-            await execute();
-        }
-
         public bool CanExecute(object parameter)
         {
-            return canExecute?.Invoke() ?? true;
+            return !isExecuting && (canExecute?.Invoke() ?? true);
+        }
+
+        public async void Execute(object parameter)
+        {
+            if (!CanExecute(parameter))
+                return;
+
+            try
+            {
+                isExecuting = true;
+                RaiseCanExecuteChanged();
+
+                await execute();
+            }
+            finally
+            {
+                isExecuting = false;
+                RaiseCanExecuteChanged();
+            }
         }
 
         public void RaiseCanExecuteChanged()

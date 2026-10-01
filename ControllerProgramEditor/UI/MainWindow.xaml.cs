@@ -18,8 +18,6 @@ namespace ControllerProgramEditor
 
         private readonly IControllerService controllerService;
 
-        private readonly MainViewModel viewModel;
-
         public MainWindow()
         {
             InitializeComponent();
