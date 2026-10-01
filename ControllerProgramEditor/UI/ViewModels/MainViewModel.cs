@@ -166,13 +166,13 @@ namespace ControllerProgramEditor.UI
         #endregion
 
         #region commands
-        public RelayCommand NewProgramCommand { get; private set; }
-        public AsyncRelayCommand ConnectCommand { get; private set; }
-        public RelayCommand DisconnectCommand { get; private set; }
-        public AsyncRelayCommand ReadProgramCommand { get; private set; }
-        public AsyncRelayCommand UploadProgramCommand { get; private set; }
-        public AsyncRelayCommand ReadDataCommand { get; private set; }
-        public AsyncRelayCommand UploadDataCommand { get; private set; }
+        public RelayCommand NewProgramCommand { get; }
+        public AsyncRelayCommand ConnectCommand { get;  }
+        public RelayCommand DisconnectCommand { get; }
+        public AsyncRelayCommand ReadProgramCommand { get; }
+        public AsyncRelayCommand UploadProgramCommand { get; }
+        public AsyncRelayCommand ReadDataCommand { get; }
+        public AsyncRelayCommand UploadDataCommand { get; }
         #endregion
 
         public MainViewModel(IControllerService controllerService, ILogger logger, IDialogsService dlgService)
