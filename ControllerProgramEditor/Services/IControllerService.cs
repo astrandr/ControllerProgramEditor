@@ -1,7 +1,7 @@
 ﻿
 namespace ControllerProgramEditor.Services
 {
-    internal interface IControllerService
+    public interface IControllerService
     {
         IEnumerable<string> Programs { get; }
         Task ConnectAsync(string controllerName);

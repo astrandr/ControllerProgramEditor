@@ -2,7 +2,7 @@
 
 namespace ControllerProgramEditor.UI.Dialogs
 {
-    internal interface IDialogsService
+    public interface IDialogsService
     {
         string SelectController();
 

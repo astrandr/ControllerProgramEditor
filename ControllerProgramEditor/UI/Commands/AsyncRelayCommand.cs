@@ -2,7 +2,7 @@
 
 namespace ControllerProgramEditor.UI.Commands
 {
-    internal class AsyncRelayCommand : ICommand, IUpdatableCommand
+    public class AsyncRelayCommand : ICommand, IUpdatableCommand
     {
         private readonly Func<Task> execute;
         private readonly Func<bool> canExecute;

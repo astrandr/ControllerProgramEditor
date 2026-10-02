@@ -7,7 +7,7 @@ using System.ComponentModel;
 
 namespace ControllerProgramEditor.UI
 {
-    internal class MainViewModel : INotifyPropertyChanged, IProgress<int>
+    public class MainViewModel : INotifyPropertyChanged, IProgress<int>
     {
         #region private members
         private readonly IControllerService controllerService;
