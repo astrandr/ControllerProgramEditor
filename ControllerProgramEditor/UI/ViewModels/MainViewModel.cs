@@ -217,7 +217,7 @@ namespace ControllerProgramEditor.UI
                 {
                     IsConnected = controllerService.IsOpen; CanConnect = !IsConnected;
                     dlgService.ShowError($"Failed to create the program.\r\n{ex.Message}");
-                    logger.LogError("Failed to create the program, {message}", ex.Message);
+                    logger.LogError(ex, "Failed to create the program.");
                 }
             }
         }
@@ -269,7 +269,7 @@ namespace ControllerProgramEditor.UI
                 IsConnected = controllerService.IsOpen;
                 CanConnect = !IsConnected;
                 dlgService.ShowError($"Failed to get list of programs. {ex.Message}");
-                logger.LogError("Failed to get list of programs, {message}", ex.Message);
+                logger.LogError(ex, "Failed to get list of programs.");
                 return;
             }
 
@@ -282,7 +282,7 @@ namespace ControllerProgramEditor.UI
                 catch (Exception ex)
                 {
                     dlgService.ShowError($"Failed to delete the program. {ex.Message}");
-                    logger.LogError("Failed to delete the program, {message}", ex.Message);
+                    logger.LogError(ex, "Failed to delete the program.");
                     throw;
                 }
 
@@ -301,7 +301,7 @@ namespace ControllerProgramEditor.UI
                     IsConnected = controllerService.IsOpen;
                     CanConnect = !IsConnected;
                     dlgService.ShowError($"Failed to read the program. {ex.Message}");
-                    logger.LogError("Failed to read the program, {message}", ex.Message);
+                    logger.LogError(ex, "Failed to read the program.");
                 }
             }
         }
@@ -317,7 +317,7 @@ namespace ControllerProgramEditor.UI
             {
                 IsConnected = controllerService.IsOpen; CanConnect = !IsConnected;
                 dlgService.ShowError($"Failed to upload the program.\r\n{ex.Message}");
-                logger.LogError("Failed to upload the program, {message}", ex.Message);
+                logger.LogError(ex, "Failed to upload the program.");
             }
         }
 
@@ -354,7 +354,7 @@ namespace ControllerProgramEditor.UI
                 {
                     IsConnected = controllerService.IsOpen;
                     dlgService.ShowError($"Failed to read data. {ex.Message}");
-                    logger.LogError("Failed to read data, {message}", ex.Message);
+                    logger.LogError(ex, "Failed to read data.");
                 }
                 finally
                 {
@@ -379,7 +379,7 @@ namespace ControllerProgramEditor.UI
             {
                 IsConnected = controllerService.IsOpen;
                 dlgService.ShowError($"Failed to upload data. {ex.Message}");
-                logger.LogError("Failed to upload data, {message}", ex.Message);
+                logger.LogError(ex, "Failed to upload data.");
             }
             finally
             {

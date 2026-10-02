@@ -475,7 +475,7 @@ namespace UnitTests
                 .Returns(Task.CompletedTask);
 
             // Act
-            await (viewModel.UploadProgramCommand as AsyncRelayCommand)!.ExecuteAsync();
+            await viewModel.UploadProgramCommand.ExecuteAsync();
 
             // Assert
             mockControllerService.Verify(
@@ -504,7 +504,7 @@ namespace UnitTests
                 .ReturnsAsync(programCode);
 
             // Act
-            await (viewModel.ReadProgramCommand as AsyncRelayCommand)!.ExecuteAsync();
+            await viewModel.ReadProgramCommand.ExecuteAsync();
 
             // Assert
             mockControllerService.Verify(
@@ -538,7 +538,7 @@ namespace UnitTests
                 .Returns(Task.CompletedTask);
 
             // Act
-            await (viewModel.UploadProgramCommand as AsyncRelayCommand)!.ExecuteAsync();
+            await viewModel.UploadProgramCommand.ExecuteAsync();
 
             // Assert
             Assert.That(capturedName, Is.EqualTo(programName));
@@ -571,7 +571,7 @@ namespace UnitTests
                 .ReturnsAsync(programCode);
 
             // Act
-            await (viewModel.ReadProgramCommand as AsyncRelayCommand)!.ExecuteAsync();
+            await viewModel.ReadProgramCommand.ExecuteAsync();
 
             // Assert
             Assert.That(capturedProgramName, Is.EqualTo(programName));
@@ -597,7 +597,7 @@ namespace UnitTests
                 .Returns(Task.CompletedTask);
 
             // Act
-            await (viewModel.UploadProgramCommand as AsyncRelayCommand)!.ExecuteAsync();
+            await viewModel.UploadProgramCommand.ExecuteAsync();
 
             // Assert
             Assert.That(capturedProgress, Is.Not.Null);
@@ -628,7 +628,7 @@ namespace UnitTests
                 .ReturnsAsync("program code");
 
             // Act
-            await (viewModel.ReadProgramCommand as AsyncRelayCommand)!.ExecuteAsync();
+            await viewModel.ReadProgramCommand.ExecuteAsync();
 
             // Assert
             Assert.That(capturedProgress, Is.Not.Null);
