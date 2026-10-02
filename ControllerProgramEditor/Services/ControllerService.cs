@@ -28,6 +28,11 @@ namespace ControllerProgramEditor.Services
 
         public bool IsOpen => controller.IsOpen;
 
+        public void CreateProgram(string programName)
+        {
+            controller.CreateProgram(programName);
+        }
+
         public void DeleteProgram(string name)
         {
             controller.DeleteProgram(name);

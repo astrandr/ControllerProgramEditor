@@ -1,10 +1,9 @@
-﻿using System.Windows;
-using Microsoft.Extensions.Logging;
-
-using ControllerProgramEditor.Services;
-using ControllerProgramEditor.UI.Dialogs;
+﻿using ControllerProgramEditor.Services;
 using ControllerProgramEditor.UI;
-
+using ControllerProgramEditor.UI.Dialogs;
+using Microsoft.Extensions.Logging;
+using System.ComponentModel;
+using System.Windows;
 using Trio.ControllerConnection;
 
 namespace ControllerProgramEditor
@@ -36,5 +35,13 @@ namespace ControllerProgramEditor
             DataContext = new MainViewModel(controllerService, logger, new DialogsService(this));
 
         }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            controllerService.Close();
+
+            base.OnClosing(e);
+        }
     }
+
 }

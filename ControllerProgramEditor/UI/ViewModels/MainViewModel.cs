@@ -181,7 +181,7 @@ namespace ControllerProgramEditor.UI
             this.logger = logger;
             this.dlgService = dlgService;
 
-            this.NewProgramCommand = new RelayCommand(NewProgram, () => true);
+            this.NewProgramCommand = new RelayCommand(NewProgram, () => IsConnected);
             this.ConnectCommand = new AsyncRelayCommand(ConnectAsync, () => CanConnect);
             this.DisconnectCommand = new RelayCommand(Disconnect, () => IsConnected);
             this.ReadProgramCommand = new AsyncRelayCommand(ReadProgramAsync, () => IsConnected);
@@ -195,7 +195,10 @@ namespace ControllerProgramEditor.UI
                 ReadProgramCommand,
                 UploadProgramCommand,
                 ReadDataCommand,
-                UploadDataCommand
+                UploadDataCommand,
+                ConnectCommand,
+                DisconnectCommand,
+                NewProgramCommand
             };
         }
 
@@ -205,7 +208,18 @@ namespace ControllerProgramEditor.UI
             var newProgramName = dlgService.GetNewProgramName();
             if (!string.IsNullOrEmpty(newProgramName))
             {
-                ProgramName = newProgramName;
+                try
+                {
+                    controllerService.CreateProgram(newProgramName);
+                    dlgService.ShowInformation("Program created.");
+                    ProgramName = newProgramName;
+                }
+                catch (Exception ex)
+                {
+                    IsConnected = controllerService.IsOpen; CanConnect = !IsConnected;
+                    dlgService.ShowError($"Failed to create the program.\r\n{ex.Message}");
+                    logger.LogError("Failed to create the program, {message}", ex.Message);
+                }
             }
         }
 

@@ -31,7 +31,7 @@
                 <MenuItem Header="_Disconnect" Command="{Binding DisconnectCommand}"/>
             </MenuItem>
 
-            <MenuItem Header="_Program" > <!--IsEnabled="{Binding IsConnected}"-->
+            <MenuItem Header="_Program" >
                 <MenuItem Header="_New" Command="{Binding NewProgramCommand}"/>
                 <MenuItem Header="_Read" Command="{Binding ReadProgramCommand}"/>
                 <MenuItem Header="_Upload" Command="{Binding UploadProgramCommand}"/>
