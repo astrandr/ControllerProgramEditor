@@ -197,7 +197,6 @@ namespace ControllerProgramEditor.UI
                 ReadDataCommand,
                 UploadDataCommand,
                 ConnectCommand,
-                DisconnectCommand,
                 NewProgramCommand
             };
         }

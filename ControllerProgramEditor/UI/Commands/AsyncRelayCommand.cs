@@ -21,7 +21,12 @@ namespace ControllerProgramEditor.UI.Commands
 
         public async void Execute(object parameter)
         {
-            if (!CanExecute(parameter))
+            await ExecuteAsync();
+        }
+
+        public async Task ExecuteAsync()
+        {
+            if (!CanExecute(null))
                 return;
 
             try

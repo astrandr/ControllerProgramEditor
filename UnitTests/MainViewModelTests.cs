@@ -1,5 +1,6 @@
 using ControllerProgramEditor.Services;
 using ControllerProgramEditor.UI;
+using ControllerProgramEditor.UI.Commands;
 using ControllerProgramEditor.UI.Dialogs;
 using ControllerProgramEditor.UI.ViewModels;
 using Microsoft.Extensions.Logging;
@@ -469,15 +470,12 @@ namespace UnitTests
             viewModel.ProgramText = programCode;
             viewModel.IsConnected = true;
 
-            var taskCompletionSource = new TaskCompletionSource();
             mockControllerService
                 .Setup(x => x.UploadProgramAsync(programName, programCode, It.IsAny<IProgress<int>>()))
-                .Returns(taskCompletionSource.Task);
+                .Returns(Task.CompletedTask);
 
             // Act
-            viewModel.UploadProgramCommand.Execute(null);
-            taskCompletionSource.SetResult();
-            await Task.Delay(50); // Allow async void to complete
+            await (viewModel.UploadProgramCommand as AsyncRelayCommand)!.ExecuteAsync();
 
             // Assert
             mockControllerService.Verify(
@@ -506,8 +504,7 @@ namespace UnitTests
                 .ReturnsAsync(programCode);
 
             // Act
-            viewModel.ReadProgramCommand.Execute(null);
-            await Task.Delay(50); // Allow async void to complete
+            await (viewModel.ReadProgramCommand as AsyncRelayCommand)!.ExecuteAsync();
 
             // Assert
             mockControllerService.Verify(
@@ -530,7 +527,6 @@ namespace UnitTests
 
             var capturedName = "";
             var capturedCode = "";
-            var taskCompletionSource = new TaskCompletionSource();
 
             mockControllerService
                 .Setup(x => x.UploadProgramAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IProgress<int>>()))
@@ -539,12 +535,10 @@ namespace UnitTests
                     capturedName = name;
                     capturedCode = code;
                 })
-                .Returns(taskCompletionSource.Task);
+                .Returns(Task.CompletedTask);
 
             // Act
-            viewModel.UploadProgramCommand.Execute(null);
-            taskCompletionSource.SetResult();
-            await Task.Delay(50); // Allow async void to complete
+            await (viewModel.UploadProgramCommand as AsyncRelayCommand)!.ExecuteAsync();
 
             // Assert
             Assert.That(capturedName, Is.EqualTo(programName));
@@ -577,8 +571,7 @@ namespace UnitTests
                 .ReturnsAsync(programCode);
 
             // Act
-            viewModel.ReadProgramCommand.Execute(null);
-            await Task.Delay(50); // Allow async void to complete
+            await (viewModel.ReadProgramCommand as AsyncRelayCommand)!.ExecuteAsync();
 
             // Assert
             Assert.That(capturedProgramName, Is.EqualTo(programName));
@@ -594,7 +587,6 @@ namespace UnitTests
             viewModel.IsConnected = true;
 
             IProgress<int>? capturedProgress = null;
-            var taskCompletionSource = new TaskCompletionSource();
 
             mockControllerService
                 .Setup(x => x.UploadProgramAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IProgress<int>>()))
@@ -602,12 +594,10 @@ namespace UnitTests
                 {
                     capturedProgress = progress;
                 })
-                .Returns(taskCompletionSource.Task);
+                .Returns(Task.CompletedTask);
 
             // Act
-            viewModel.UploadProgramCommand.Execute(null);
-            taskCompletionSource.SetResult();
-            await Task.Delay(50); // Allow async void to complete
+            await (viewModel.UploadProgramCommand as AsyncRelayCommand)!.ExecuteAsync();
 
             // Assert
             Assert.That(capturedProgress, Is.Not.Null);
@@ -638,8 +628,7 @@ namespace UnitTests
                 .ReturnsAsync("program code");
 
             // Act
-            viewModel.ReadProgramCommand.Execute(null);
-            await Task.Delay(50); // Allow async void to complete
+            await (viewModel.ReadProgramCommand as AsyncRelayCommand)!.ExecuteAsync();
 
             // Assert
             Assert.That(capturedProgress, Is.Not.Null);
